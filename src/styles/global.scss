@@ -1,0 +1,32 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.task-card {
+  transition: box-shadow 0.15s ease, transform 0.08s ease;
+  margin-bottom: 0.5rem;
+}
+
+.task-card.dragging {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.card .overflow-auto {
+  max-height: 400px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-dialog {
+  max-width: 480px;
+  width: 100%;
+}

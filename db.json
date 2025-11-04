@@ -1,0 +1,58 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Design homepage",
+      "description": "Include hero section",
+      "column": "backlog"
+    },
+    {
+      "id": "2",
+      "title": "Build API integration",
+      "description": "Connect to json-server",
+      "column": "in-progress"
+    },
+    {
+      "id": "3",
+      "title": "QA tests",
+      "description": "Add unit tests",
+      "column": "review"
+    },
+    {
+      "id": "4",
+      "title": "Deploy to Vercel",
+      "description": "Publish production",
+      "column": "done"
+    },
+    {
+      "id": "5",
+      "title": "Footer tweaks",
+      "description": "Mobile friendly",
+      "column": "backlog"
+    },
+    {
+      "id": "6",
+      "title": "Accessibility audit",
+      "description": "Fix contrast",
+      "column": "in-progress"
+    },
+    {
+      "id": "9949",
+      "title": "sfdsdf",
+      "description": "dsfsdf",
+      "column": "in-progress"
+    },
+    {
+      "id": "ebfe",
+      "title": "sdfsdf",
+      "description": "sdfsdf",
+      "column": "in-progress"
+    },
+    {
+      "id": "9f59",
+      "title": "fhgh",
+      "description": "fghfgh",
+      "column": "in-progress"
+    }
+  ]
+}
