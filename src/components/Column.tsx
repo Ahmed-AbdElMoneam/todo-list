@@ -1,13 +1,14 @@
-import React from "react";
+// import React from "react";
 // import TaskCard from "./TaskCard";
 import TaskCard from "./TaskCard";
 import { useDroppable } from "@dnd-kit/core";
-import { useTasks } from "../hooks/useTasks";
+// import { useTasks } from "../hooks/useTasks";
+import type { ITask } from "../types/task";
 
 interface ColumnProps {
   columnId: string;
   title: string;
-  tasks: any[];
+  tasks: ITask[];
   showLoadMore?: boolean;
   onLoadMore?: () => void;
 }
@@ -37,7 +38,7 @@ export default function Column({
             <div className="text-muted">No tasks</div>
           ) : null}
           <div className="mt-2 d-flex flex-column gap-2">
-            {tasks.map((task, idx) => (
+            {tasks.map((task) => (
               <TaskCard key={task.id} task={task} />
             ))}
           </div>

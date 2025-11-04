@@ -4,19 +4,19 @@
       "id": "1",
       "title": "Design homepage",
       "description": "Include hero section",
-      "column": "backlog"
+      "column": "in-progress"
     },
     {
       "id": "2",
       "title": "Build API integration",
       "description": "Connect to json-server",
-      "column": "in-progress"
+      "column": "review"
     },
     {
       "id": "3",
       "title": "QA tests",
       "description": "Add unit tests",
-      "column": "review"
+      "column": "in-progress"
     },
     {
       "id": "4",
@@ -28,19 +28,19 @@
       "id": "5",
       "title": "Footer tweaks",
       "description": "Mobile friendly",
-      "column": "backlog"
+      "column": "done"
     },
     {
       "id": "6",
       "title": "Accessibility audit",
       "description": "Fix contrast",
-      "column": "in-progress"
+      "column": "review"
     },
     {
       "id": "9949",
       "title": "sfdsdf",
       "description": "dsfsdf",
-      "column": "in-progress"
+      "column": "review"
     },
     {
       "id": "ebfe",
@@ -52,7 +52,31 @@
       "id": "9f59",
       "title": "fhgh",
       "description": "fghfgh",
+      "column": "backlog"
+    },
+    {
+      "id": "15f0",
+      "title": "dfgdfg",
+      "description": "fdgdfg",
+      "column": "done"
+    },
+    {
+      "id": "ac31",
+      "title": "fghfgh",
+      "description": "gfhfgh",
       "column": "in-progress"
+    },
+    {
+      "id": "e3db",
+      "title": "fdg",
+      "description": "fdg",
+      "column": "backlog"
+    },
+    {
+      "id": "7c31",
+      "title": "sdgdhgtfhygjgyjyj",
+      "description": "ghfghgfhgfhgfhfghfh",
+      "column": "backlog"
     }
   ]
 }

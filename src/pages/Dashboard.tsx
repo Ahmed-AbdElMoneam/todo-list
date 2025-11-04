@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from "react";
+import { useState } from "react";
 import { useTasks } from "../hooks/useTasks";
-// import Column from '../components/Column';
 import Column from "../components/Column";
-// import AddTaskModal from '../components/AddTaskModal';
 import AddTaskModal from "../components/AddTaskModal";
 import { useTaskStore } from "../store/useTaskStore";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import type { ITask } from "../types/task";
 
 const COLUMNS = [
   { id: "backlog", title: "Backlog" },
@@ -27,26 +26,30 @@ export default function Dashboard() {
   });
 
   if (tasksQuery.isLoading) return <div>Loading...</div>;
-  const tasks: any[] = tasksQuery.data || [];
+  const tasks: ITask[] = tasksQuery.data || [];
 
   const tasksByColumn = () => {
-    const filtered = () => {
-      const q = search.trim().toLowerCase();
-      if (!q) return tasks;
-      return tasks.filter(
-        (t) =>
-          t.title.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q)
-      );
-    };
-    const map: Record<string, any[]> = {
+    const q = search.trim().toLowerCase();
+    const filtered = !q
+      ? tasks
+      : tasks.filter(
+          (t) =>
+            t.title.toLowerCase().includes(q) ||
+            t.description.toLowerCase().includes(q)
+        );
+    const map: Record<string, ITask[]> = {
       backlog: [],
       "in-progress": [],
       review: [],
       done: [],
     };
     filtered.forEach((t) => {
-      const col = map[t.column] ? t.column : "backlog";
+      // Ensure t.column is a string and matches one of the keys
+      const col =
+        typeof t.column === "string" &&
+        Object.prototype.hasOwnProperty.call(map, t.column)
+          ? t.column
+          : "backlog";
       map[col].push(t);
     });
     return map;
@@ -59,14 +62,19 @@ export default function Dashboard() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
-    // active.id is "task-<id>" or number depending on how we set it; we set as "task-<id>"
-    const activeData: any = active.data.current;
-    const fromColumn = activeData?.fromColumn;
-    const taskId = activeData?.taskId;
+    // Accept both string and number for taskId
+    const activeData = active.data.current as
+      | { taskId: number | string; fromColumn: string }
+      | undefined;
+    if (!activeData) return;
+    const fromColumn = activeData.fromColumn;
+    // Always use number for id in updateMutation
+    const taskId =
+      typeof activeData.taskId === "string"
+        ? Number(activeData.taskId)
+        : activeData.taskId;
 
-    let destColumn = null;
-    // If over is column id: e.g., "backlog"
-    // If over is a task id like "task-3", derive its column:
+    let destColumn: string | null = null;
     const overId = over.id as string;
     if (!overId) return;
 
@@ -78,10 +86,13 @@ export default function Dashboard() {
       destColumn = overId;
     }
 
-    if (!taskId || !destColumn || destColumn === fromColumn) return;
+    if (typeof taskId !== "number" || !destColumn || destColumn === fromColumn)
+      return;
 
     updateMutation.mutate({ id: taskId, data: { column: destColumn } });
   };
+
+  const columnsMap = tasksByColumn();
 
   return (
     <>
@@ -102,7 +113,7 @@ export default function Dashboard() {
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row gx-3">
           {COLUMNS.map((col) => {
-            const all = tasksByColumn[col.id] || [];
+            const all = columnsMap[col.id] || [];
             const page = pages[col.id] || 1;
             const visible = all.slice(0, page * pageSize);
             return (

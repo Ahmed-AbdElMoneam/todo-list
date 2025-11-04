@@ -13,16 +13,17 @@ export const useTasks = () => {
 
   const createMutation = useMutation({
     mutationFn: createTask,
-    onSuccess: () => queryClient.invalidateQueries(["tasks"]),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: ITask }) =>
+    // updates are partial (we may only send one or two fields)
+    mutationFn: ({ id, data }: { id: number; data: Partial<ITask> }) =>
       updateTask(id, data),
-    onSuccess: () => queryClient.invalidateQueries(["tasks"]),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
   const deleteMutation = useMutation({
     mutationFn: deleteTask,
-    onSuccess: () => queryClient.invalidateQueries(["tasks"]),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 
   return { tasksQuery, createMutation, updateMutation, deleteMutation };
